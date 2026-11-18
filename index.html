@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiftNest - Thoughtful Gifting</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #fdf8f5;
+            color: #3d242a;
+        }
+
+        header {
+            background: #4a2531;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            letter-spacing: 2px;
+        }
+
+        header span {
+            color: #f3c19d;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 14px;
+        }
+
+        .hero {
+            min-height: 360px;
+            background: linear-gradient(120deg, #3b1c26 0%, #6d3849 60%, #9e5243 100%);
+            color: white;
+            padding: 90px 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            max-width: 550px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #f3e4dc;
+            line-height: 1.7;
+            max-width: 450px;
+        }
+
+        .hero button {
+            width: 160px;
+            padding: 12px;
+            margin-top: 25px;
+            background: #f3c19d;
+            color: #4a2531;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .categories {
+            padding: 45px 8%;
+            text-align: center;
+        }
+
+        .categories h2 {
+            margin-bottom: 10px;
+        }
+
+        .categories > p {
+            color: #7d6168;
+            margin-bottom: 25px;
+        }
+
+        .category-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px #00000012;
+        }
+
+        .cat-art {
+            width: 100%;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px;
+            border-bottom: 1px dashed rgba(61, 36, 42, 0.15);
+        }
+
+        .cat-art .emoji {
+            font-size: 42px;
+            line-height: 1;
+        }
+
+        .cat-art .art-label {
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #4a2531;
+        }
+
+        .category-card h3 {
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        .finder {
+            background: #f3e4dc;
+            padding: 50px 20px;
+        }
+
+        .form-box {
+            background: white;
+            max-width: 550px;
+            margin: auto;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px #00000012;
+        }
+
+        .form-box h2 {
+            margin-bottom: 10px;
+        }
+
+        .form-box > p {
+            color: #7d6168;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 17px 0 8px;
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: white;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #6d3849;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            margin-top: 25px;
+            font-size: 15px;
+        }
+
+        .submit-btn:hover {
+            background: #4a2531;
+        }
+
+        #result {
+            display: none;
+            margin-top: 25px;
+            background: #fdf3ee;
+            padding: 20px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .result-art {
+            width: 140px;
+            height: 150px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px;
+            text-align: center;
+            border: 1px dashed rgba(61, 36, 42, 0.2);
+        }
+
+        .result-art .emoji {
+            font-size: 46px;
+            line-height: 1;
+        }
+
+        .result-art .art-label {
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: #4a2531;
+        }
+
+        footer {
+            background: #4a2531;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        @media(max-width: 650px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 8px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .category-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-box {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Gift<span>Nest.</span></h2>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="#finder">Find Gifts</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <h1>Every Gift Tells a Thoughtful Story.</h1>
+
+    <p>
+        Explore curated hampers, discover personalised keepsakes
+        and find the perfect present for every celebration with GiftNest.
+    </p>
+
+    <button onclick="showFinder()">Explore Gifts</button>
+</section>
+
+<section class="categories" id="categories">
+    <h2>Explore Gift Collections</h2>
+
+    <p>Discover curated surprises for every occasion and style.</p>
+
+    <div class="category-container">
+
+        <div class="category-card">
+            <div class="cat-art" data-label="Festive Hampers" data-emoji="🪔" data-bg="#fbe6d4"></div>
+            <h3>Festive Hampers</h3>
+        </div>
+
+        <div class="category-card">
+            <div class="cat-art" data-label="Home & Wellness" data-emoji="🕯️" data-bg="#fce8ec"></div>
+            <h3>Home & Wellness</h3>
+        </div>
+
+        <div class="category-card">
+            <div class="cat-art" data-label="Personalised" data-emoji="☕" data-bg="#efe5dc"></div>
+            <h3>Personalised Keepsakes</h3>
+        </div>
+
+        <div class="category-card">
+            <div class="cat-art" data-label="Green Gifting" data-emoji="🪴" data-bg="#e3efe6"></div>
+            <h3>Green Gifting</h3>
+        </div>
+
+    </div>
+</section>
+
+<section class="finder" id="finder">
+    <div class="form-box">
+
+        <h2>Find Your Perfect Gift 🎁</h2>
+
+        <p>Tell us who you are shopping for. We will pick a gift for you.</p>
+
+        <form id="giftForm">
+
+            <label>Gift Category</label>
+            <select id="category">
+                <option value="">Choose a category</option>
+                <option value="hampers">Festive Hampers</option>
+                <option value="wellness">Home & Wellness</option>
+                <option value="personalised">Personalised Keepsakes</option>
+                <option value="green">Green Gifting</option>
+            </select>
+
+            <label>Budget Range</label>
+            <select id="budget">
+                <option value="">Choose budget range</option>
+                <option value="Under ₹500">Under ₹500</option>
+                <option value="₹500 – ₹1,500">₹500 – ₹1,500</option>
+                <option value="Above ₹1,500">Above ₹1,500</option>
+            </select>
+
+            <label>Gifting Style</label>
+            <select id="style">
+                <option value="">Choose style</option>
+                <option value="Minimal & Classic">Minimal & Classic</option>
+                <option value="Grand & Festive">Grand & Festive</option>
+            </select>
+
+            <button type="submit" class="submit-btn">
+                Find My Gift →
+            </button>
+
+        </form>
+
+        <div id="result"></div>
+
+    </div>
+</section>
+
+<footer>
+    <h3>GiftNest.</h3>
+    <p>Wrap. Share. Celebrate.</p>
+    <p>© 2026 GiftNest. All Rights Reserved.</p>
+</footer>
+
+<script>
+    document.querySelectorAll(".cat-art").forEach((card) => {
+        if (card
