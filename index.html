@@ -103,30 +103,35 @@
             box-shadow: 0 4px 15px #00000012;
         }
 
-        .cat-art {
+        .cat-box {
             width: 100%;
             height: 140px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
             padding: 10px;
             border-bottom: 1px dashed rgba(61, 36, 42, 0.15);
         }
 
-        .cat-art .emoji {
-            font-size: 42px;
+        .cat-box .emoji {
+            font-size: 44px;
             line-height: 1;
         }
 
-        .cat-art .art-label {
+        .cat-box .tag {
             font-size: 11px;
             font-weight: bold;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             color: #4a2531;
         }
+
+        .box-festive { background: #fbe6d4; }
+        .box-wellness { background: #fce8ec; }
+        .box-personalised { background: #efe5dc; }
+        .box-green { background: #e3efe6; }
 
         .category-card h3 {
             padding: 15px;
@@ -198,7 +203,7 @@
             line-height: 1.8;
         }
 
-        .result-art {
+        .result-box {
             width: 140px;
             height: 150px;
             border-radius: 8px;
@@ -213,12 +218,12 @@
             border: 1px dashed rgba(61, 36, 42, 0.2);
         }
 
-        .result-art .emoji {
+        .result-box .emoji {
             font-size: 46px;
             line-height: 1;
         }
 
-        .result-art .art-label {
+        .result-box .tag {
             font-size: 11px;
             font-weight: bold;
             letter-spacing: 0.4px;
@@ -278,7 +283,7 @@
         and find the perfect present for every celebration with GiftNest.
     </p>
 
-    <button onclick="showFinder()">Explore Gifts</button>
+    <button type="button" onclick="showFinder()">Explore Gifts</button>
 </section>
 
 <section class="categories" id="categories">
@@ -289,22 +294,34 @@
     <div class="category-container">
 
         <div class="category-card">
-            <div class="cat-art" data-label="Festive Hampers" data-emoji="🪔" data-bg="#fbe6d4"></div>
+            <div class="cat-box box-festive">
+                <span class="emoji">🪔</span>
+                <span class="tag">Festive Hampers</span>
+            </div>
             <h3>Festive Hampers</h3>
         </div>
 
         <div class="category-card">
-            <div class="cat-art" data-label="Home & Wellness" data-emoji="🕯️" data-bg="#fce8ec"></div>
-            <h3>Home & Wellness</h3>
+            <div class="cat-box box-wellness">
+                <span class="emoji">🕯️</span>
+                <span class="tag">Home &amp; Wellness</span>
+            </div>
+            <h3>Home &amp; Wellness</h3>
         </div>
 
         <div class="category-card">
-            <div class="cat-art" data-label="Personalised" data-emoji="☕" data-bg="#efe5dc"></div>
+            <div class="cat-box box-personalised">
+                <span class="emoji">☕</span>
+                <span class="tag">Personalised</span>
+            </div>
             <h3>Personalised Keepsakes</h3>
         </div>
 
         <div class="category-card">
-            <div class="cat-art" data-label="Green Gifting" data-emoji="🪴" data-bg="#e3efe6"></div>
+            <div class="cat-box box-green">
+                <span class="emoji">🪴</span>
+                <span class="tag">Green Gifting</span>
+            </div>
             <h3>Green Gifting</h3>
         </div>
 
@@ -320,16 +337,16 @@
 
         <form id="giftForm">
 
-            <label>Gift Category</label>
+            <label for="category">Gift Category</label>
             <select id="category">
                 <option value="">Choose a category</option>
                 <option value="hampers">Festive Hampers</option>
-                <option value="wellness">Home & Wellness</option>
+                <option value="wellness">Home &amp; Wellness</option>
                 <option value="personalised">Personalised Keepsakes</option>
                 <option value="green">Green Gifting</option>
             </select>
 
-            <label>Budget Range</label>
+            <label for="budget">Budget Range</label>
             <select id="budget">
                 <option value="">Choose budget range</option>
                 <option value="Under ₹500">Under ₹500</option>
@@ -337,11 +354,11 @@
                 <option value="Above ₹1,500">Above ₹1,500</option>
             </select>
 
-            <label>Gifting Style</label>
+            <label for="style">Gifting Style</label>
             <select id="style">
                 <option value="">Choose style</option>
-                <option value="Minimal & Classic">Minimal & Classic</option>
-                <option value="Grand & Festive">Grand & Festive</option>
+                <option value="Minimal & Classic">Minimal &amp; Classic</option>
+                <option value="Grand & Festive">Grand &amp; Festive</option>
             </select>
 
             <button type="submit" class="submit-btn">
@@ -362,5 +379,67 @@
 </footer>
 
 <script>
-    document.querySelectorAll(".cat-art").forEach((card) => {
-        if (card
+    function showFinder() {
+        document.getElementById("finder").scrollIntoView({ behavior: "smooth" });
+    }
+
+    document.getElementById("giftForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const category = document.getElementById("category").value;
+        const budget = document.getElementById("budget").value;
+        const style = document.getElementById("style").value;
+        const result = document.getElementById("result");
+
+        if (!category || !budget || !style) {
+            result.style.display = "block";
+            result.innerHTML = "<p>Please select all your gifting preferences.</p>";
+            return;
+        }
+
+        const picks = {
+            hampers: {
+                gift: "Artisanal Sweet & Dry Fruit Hamper",
+                emoji: "🪔",
+                boxClass: "box-festive",
+                tag: "Festive Hamper"
+            },
+            wellness: {
+                gift: "Hand-Poured Aroma Soy Candle Trio",
+                emoji: "🕯️",
+                boxClass: "box-wellness",
+                tag: "Home & Wellness"
+            },
+            personalised: {
+                gift: "Engraved Ceramic Mug & Coaster Set",
+                emoji: "☕",
+                boxClass: "box-personalised",
+                tag: "Personalised"
+            },
+            green: {
+                gift: "Ceramic Planter with Mini Desk Succulent",
+                emoji: "🪴",
+                boxClass: "box-green",
+                tag: "Green Gifting"
+            }
+        };
+
+        const item = picks[category];
+
+        result.style.display = "block";
+        result.innerHTML = `
+            <h3>Your Recommended Gift 🎀</h3>
+            <div class="result-box ${item.boxClass}">
+                <span class="emoji">${item.emoji}</span>
+                <span class="tag">${item.tag}</span>
+            </div>
+            <h3>${item.gift}</h3>
+            <p><b>Budget Range:</b> ${budget}</p>
+            <p><b>Gifting Style:</b> ${style}</p>
+            <p>Happy Gifting with GiftNest!</p>
+        `;
+    });
+</script>
+
+</body>
+</html>
